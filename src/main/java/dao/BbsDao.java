@@ -404,6 +404,92 @@ public class BbsDao {
 		}			
 	}
 	
+	public boolean updateBbs(int seq, String title, String content) {
+		String sql = " update bbs "
+				+ "    set title=?, content=? "
+				+ "    where seq=? ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int count = 0;
+		
+		try {
+			conn = DBConnection.getConnection();
+			System.out.println("1/3 updateBbs success");
+				
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, title);
+			psmt.setString(2, content);
+			psmt.setInt(3, seq);
+			System.out.println("2/3 updateBbs success");
+			
+			count = psmt.executeUpdate();
+			System.out.println("3/3 updateBbs success");
+			
+		} catch (SQLException e) {
+			System.out.println("updateBbs fail");
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, psmt, null);
+		}
+		
+		return count>0?true:false;
+	}
+	
+	public boolean deleteBbs(int seq) {
+		
+		String sql = " update bbs "
+				+ "    set del=1 "
+				+ "    where seq=? ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int count = 0;
+		
+		try {
+			conn = DBConnection.getConnection();
+			System.out.println("1/3 deleteBbs success");
+				
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+			System.out.println("2/3 deleteBbs success");
+			
+			count = psmt.executeUpdate();
+			System.out.println("3/3 deleteBbs success");
+			
+		} catch (SQLException e) {	
+			System.out.println("deleteBbs fail");
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, psmt, null);
+		}
+		
+		return count>0?true:false;
+	}
+	
+	public void readcount(int seq) {
+		String sql = " update bbs"
+				+ "    set readcount=readcount+1 "
+				+ "    where seq=? ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			conn = DBConnection.getConnection();
+				
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+			
+			psmt.execute();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, psmt, null);
+		}		
+	}
+	
 	
 }
 

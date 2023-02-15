@@ -30,6 +30,8 @@ int seq = Integer.parseInt( request.getParameter("seq") );
 	
 	BbsDao dao = BbsDao.getInstance();
 	
+	dao.readcount(seq);   // 카운트 증가
+	
 	BbsDto dto = dao.getBbs(seq);
 %> 
 
@@ -96,7 +98,7 @@ function updateBbs( seq ) {
 	location.href = "bbsupdate.jsp?seq=" + seq;
 }
 function deleteBbs( seq ) {
-	location.href = "bbsdelete.jsp?seq=" + seq;  // update del=1
+	location.href = "bbsdeleteAf.jsp?seq=" + seq;  // update del=1
 }
 // readcount 증가
 </script>
