@@ -13,6 +13,7 @@ public class MemberDto implements Serializable{
 	private int auth;		// 사용자:3  관리자:1
 	
 	public MemberDto() {
+		
 	}
 
 	public MemberDto(String id, String pwd, String name, String email, int auth) {
